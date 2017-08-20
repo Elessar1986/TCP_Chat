@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TCP_Chat_Server
 {
@@ -26,24 +27,29 @@ namespace TCP_Chat_Server
     {
         const int port = 8888;
 
+        Server server;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private async void Button_ClickAsync(object sender, RoutedEventArgs e)
+        private  void Button_Click(object sender, RoutedEventArgs e)
         {
-            TcpListener server = null;
+            
 
             try
             {
-                server = new TcpListener(IPAddress.Parse("192.168.0.102"), port);
-                server.Start();
-                while (true)
-                {
-                    TcpClient client = server.AcceptTcpClient();
-                    await  Task.Factory.StartNew( () => Listener(client),TaskCreationOptions.LongRunning);
-                }
+                Logins.Text += "Сервер запускаеться...";
+                server = new Server(port);
+                //while (true)
+                //{
+                    
+                //    Thread newThread = new Thread(new ThreadStart(Listener));
+                //    newThread.Start();
+                //}
+                Logins.Text += "Сервер стартовал." + DateTime.Now.ToLongTimeString();
+                Logins.Text += "Ожидание подключений...";
             }
             catch (Exception ex)
             {
@@ -52,24 +58,25 @@ namespace TCP_Chat_Server
             finally
             {
                 if (server != null)
-                    server.Stop();
-            }
-        }
-
-        void Listener(Object o)
-        {
-            TcpClient client = (TcpClient)o;
-            NetworkStream stream = client.GetStream();
-            StreamReader sw = new StreamReader(stream);
-            string answer = sw.ReadToEnd();
-            lock (this)
-            {
-                Logins.Text += answer + "\n";
+                    server.Close();
             }
             
+        }
 
-            sw.Close();
-            client.Close();
+        async void Listener()
+        {
+            
+            //NetworkStream stream = client.GetStream();
+            //StreamReader sw = new StreamReader(stream);
+            //string answer = sw.ReadToEnd();
+            //await Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    Logins.Text += answer + "\n";
+            //}));
+            
+            
+            
+            //sw.Close();
             
         }
     }
