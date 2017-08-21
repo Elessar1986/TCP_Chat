@@ -18,3 +18,6 @@ E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\myStyle.b
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\App.baml
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\Brushes.baml
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\Icons.baml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.dll
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.xml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\MoonUICore.baml

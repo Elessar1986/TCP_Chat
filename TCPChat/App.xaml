@@ -7,9 +7,15 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/myStyle.xaml"></ResourceDictionary>
+                <!--<ResourceDictionary Source="Themes/myStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Themes/Brushes.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Themes/Icons.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Themes/Icons.xaml"></ResourceDictionary>-->
+                
+                <!--<ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
+                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>-->
+
+
+                <ResourceDictionary Source="Themes/MoonUICore.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
