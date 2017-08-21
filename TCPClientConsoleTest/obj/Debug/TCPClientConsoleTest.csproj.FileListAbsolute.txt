@@ -1,0 +1,6 @@
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.exe.config
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.exe
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.exe
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.csprojResolveAssemblyReference.cache

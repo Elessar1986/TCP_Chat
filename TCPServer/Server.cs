@@ -27,13 +27,14 @@ namespace TCPServer
             while (true)
             {
                 // Принимаем нового клиента
-                TcpClient Client = Listener.AcceptTcpClient();
+                //TcpClient Client = Listener.AcceptTcpClient();
+                //Client client = new Client(Client);
                 // Создаем поток
-                Thread thread = new Thread(new ParameterizedThreadStart(ClientThread));
+                //Thread thread = new Thread(new ThreadStart(client.ClientResponseToUpper));
                 // И запускаем этот поток, передавая ему принятого клиента
-                thread.Start(Client);
+                //thread.Start(Client);
 
-                //ListenerRun();
+                ListenerRun();
             }
         }
 
@@ -57,17 +58,18 @@ namespace TCPServer
         {
             // Принимаем нового клиента
             TcpClient Client = await Listener.AcceptTcpClientAsync();
+            Client client = new Client(Client);
             // Создаем поток
-            Thread thread = new Thread(new ParameterizedThreadStart(ClientThread));
+            Thread thread = new Thread(new ThreadStart(client.ClientResponseToUpper));
             // И запускаем этот поток, передавая ему принятого клиента
-            thread.Start(Client);
+            thread.Start();
         }
 
 
-        static void ClientThread(Object StateInfo)
-        {
-            new Client((TcpClient)StateInfo);
-        }
+        //static void ClientThread(Object StateInfo)
+        //{
+        //    new Client((TcpClient)StateInfo);
+        //}
     }
 
 
