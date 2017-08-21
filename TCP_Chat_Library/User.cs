@@ -9,7 +9,7 @@ namespace TCP_Chat_Library
 
     public class User
     {
-
+        
 
 
 

@@ -12,3 +12,9 @@ E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\TCPChat.Properti
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\TCPChat.csproj.GenerateResource.Cache
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\TCPChat.exe
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\TCPChat.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\LoginWindow.g.cs
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\LoginWindow.baml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\myStyle.baml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\App.baml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\Brushes.baml
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\Icons.baml

@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:TCPChat"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/myStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Themes/Brushes.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Themes/Icons.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
