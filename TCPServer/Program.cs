@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace TCPServer
 {
@@ -13,15 +14,24 @@ namespace TCPServer
     {
 
 
+        static Server server; // сервер
+        static Thread listenThread; // потока для прослушивания
         static void Main(string[] args)
         {
-
-            new Server(20000);
-
-            Console.ReadKey();
+            try
+            {
+                server = new Server();
+                listenThread = new Thread(new ThreadStart(server.Listen));
+                listenThread.Start(); //старт потока
+            }
+            catch (Exception ex)
+            {
+                server.Disconnect();
+                Console.WriteLine(ex.Message);
+            }
         }
 
-       
+
     }
 }
 
