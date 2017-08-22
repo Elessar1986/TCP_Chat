@@ -1,0 +1,5 @@
+E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\bin\Debug\TCP_Chat_Library.dll
+E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\bin\Debug\TCP_Chat_Library.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.dll
+E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.csprojResolveAssemblyReference.cache
