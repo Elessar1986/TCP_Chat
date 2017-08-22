@@ -160,9 +160,12 @@ namespace TCPChat
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            string message = "exit";
-            byte[] data = Encoding.Unicode.GetBytes(message);
-            stream.Write(data, 0, data.Length);
+            if (stream != null)
+            {
+                string message = "exit";
+                byte[] data = Encoding.Unicode.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+            }
             Disconnect();
             Environment.Exit(0);
         }

@@ -23,23 +23,6 @@ namespace TCPServer
         {
             serverData data = new serverData();
 
-
-            var a = from u in data.Messages
-                    where u.FromID == (from w in data.User
-                                       where w.Name == "Ivan"
-                                       select w.UserId).FirstOrDefault()
-                    select u;
-
-            foreach (var item in a)
-            {
-                Console.WriteLine($"{item.FromID} {item.ToId} {item.Message}");
-            }
-
-           
-            
-
-            Console.ReadKey();
-           
             try
             {
 
