@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TCPServer
 {
@@ -32,7 +33,7 @@ namespace TCPServer
                 // получаем имя пользователя
                 string message = GetMessage();
                 userName = message;
-
+                Console.WriteLine($"{client.Client.RemoteEndPoint} conected");
                 message = userName + " вошел в чат";
                 // посылаем сообщение о входе в чат всем подключенным пользователям
                 server.BroadcastMessage(message, this.Id);
@@ -46,6 +47,7 @@ namespace TCPServer
                     {
                         message = GetMessage();
                         if (message.Contains("exit")) throw new Exception();
+                        if (message.Contains("test")) Console.WriteLine("\nIt's a test!!!!\n");
                         message = String.Format("{0}: {1}", userName, message);
                         Console.WriteLine(message);
                         WriteToLog(message);

@@ -28,7 +28,7 @@ namespace TCPChat
 
         Source source;
         static string userName;
-        private const string host = "192.168.0.102";
+        private const string host = "176.38.92.22";
         private const int port = 20000;
         static TcpClient client;
         static NetworkStream stream;
