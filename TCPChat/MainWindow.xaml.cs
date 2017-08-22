@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -37,6 +38,7 @@ namespace TCPChat
         {
             Login();
             InitializeComponent();
+            
             source = new Source();
             this.DataContext = source;
             //client = new TcpClient();

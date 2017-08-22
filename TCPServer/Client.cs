@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
 
 namespace TCPServer
 {
@@ -47,7 +48,11 @@ namespace TCPServer
                     {
                         message = GetMessage();
                         if (message.Contains("exit")) throw new Exception();
-                        if (message.Contains("test")) Console.WriteLine("\nIt's a test!!!!\n");
+                        if (message.Contains("test"))
+                        {
+                            Console.WriteLine("\nIt's a test!!!!\n");
+                            System.Diagnostics.Process.Start("gribi.mp3");
+                        }
                         message = String.Format("{0}: {1}", userName, message);
                         Console.WriteLine(message);
                         WriteToLog(message);
