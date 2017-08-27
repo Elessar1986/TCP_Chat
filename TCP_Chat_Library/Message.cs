@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCP_Chat_Library
 {
-    class Message
+    public class Message
     {
             public long MessageID { get; set; }
 
@@ -15,7 +15,6 @@ namespace TCP_Chat_Library
             public long ToId { get; set; }
 
             public DateTime? Time { get; set; }
-
             public string message { get; set; }
    
     }

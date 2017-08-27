@@ -30,6 +30,7 @@ namespace TCPChat
     public partial class MainWindow : Window
     {
         User user;
+        Message newMessage
         Source source;
         //static string userName;
         //private const string host = "176.38.92.22";
