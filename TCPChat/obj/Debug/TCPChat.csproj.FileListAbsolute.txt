@@ -21,3 +21,26 @@ E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\Icons.bam
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.xml
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\obj\Debug\Themes\MoonUICore.baml
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.dll
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\bin\Debug\TCPChat.exe.config
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\bin\Debug\TCPChat.exe
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\bin\Debug\TCPChat.pdb
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.dll
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\bin\Debug\FirstFloor.ModernUI.xml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.csprojResolveAssemblyReference.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\Themes\Brushes.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\Themes\Icons.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\Themes\MoonUICore.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\Themes\myStyle.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\LoginWindow.g.cs
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\MainWindow.g.cs
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\App.g.cs
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat_MarkupCompile.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat_MarkupCompile.lref
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\App.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\LoginWindow.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\MainWindow.baml
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.g.resources
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.Properties.Resources.resources
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.csproj.GenerateResource.Cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.exe
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.pdb

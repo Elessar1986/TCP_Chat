@@ -3,3 +3,8 @@ E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\bin\Debug\TCP_Cha
 E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.dll
 E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.pdb
 E:\Programming\Projects\Web Programm\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.csprojResolveAssemblyReference.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCP_Chat_Library\bin\Debug\TCP_Chat_Library.dll
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCP_Chat_Library\bin\Debug\TCP_Chat_Library.pdb
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.csprojResolveAssemblyReference.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.dll
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCP_Chat_Library\obj\Debug\TCP_Chat_Library.pdb

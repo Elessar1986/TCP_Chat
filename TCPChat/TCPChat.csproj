@@ -122,6 +122,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TCP_Chat_Library\TCP_Chat_Library.csproj">
+      <Project>{63a25003-2973-440f-b087-73caf5d6ae32}</Project>
+      <Name>TCP_Chat_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

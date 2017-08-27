@@ -4,3 +4,9 @@ E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCP
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.exe
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.pdb
 E:\Programming\Projects\Web Programm\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.csprojResolveAssemblyReference.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.exe.config
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.exe
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\bin\Debug\TCPClientConsoleTest.pdb
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.csprojResolveAssemblyReference.cache
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.exe
+C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPClientConsoleTest\obj\Debug\TCPClientConsoleTest.pdb

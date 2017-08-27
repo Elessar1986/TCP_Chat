@@ -17,11 +17,16 @@ namespace TCPChat
     /// <summary>
     /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+
+        private Window mainWindow;
+        public LoginWindow(Window mainWin)
         {
             InitializeComponent();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,6 +39,13 @@ namespace TCPChat
         {
             get { return Password.Password; }
         }
+
+        public string login
+        {
+            get { return Login.Text; }
+        }
+
+
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

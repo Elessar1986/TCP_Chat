@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TCP_Chat_Library;
 
 
 namespace TCPChat
@@ -26,38 +27,46 @@ namespace TCPChat
     /// </summary>
     public partial class MainWindow : Window
     {
+        User user;
 
         Source source;
         static string userName;
-        private const string host = "176.38.92.22";
+        //private const string host = "176.38.92.22";
+        private const string host = "127.0.0.1";
+
         private const int port = 20000;
         static TcpClient client;
         static NetworkStream stream;
 
         public MainWindow()
         {
-            Login();
+            
             InitializeComponent();
             
             source = new Source();
             this.DataContext = source;
-            //client = new TcpClient();
-            //try
-            //{
-            //    client.Connect(host, port); //подключение клиента
-            //    stream = client.GetStream(); // получаем поток
-            //    userName = Guid.NewGuid().ToString();
-            //    string message = userName;
-            //    byte[] data = Encoding.Unicode.GetBytes(message);
-            //    stream.Write(data, 0, data.Length);
-            //    Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
-            //    receiveThread.Start();
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show("Error" + ex.Message);
-            //}
+            Conect();
+            Login();
+        }
 
+        public void Conect()
+        {
+            client = new TcpClient();
+            try
+            {
+                client.Connect(host, port); //подключение клиента
+                stream = client.GetStream(); // получаем поток
+                userName = Guid.NewGuid().ToString();
+                string message = userName;
+                byte[] data = Encoding.Unicode.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+                Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
+                receiveThread.Start();
+            }
+            catch (Exception ex)
+            {
+                WriteMessage("Error" + ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -67,23 +76,41 @@ namespace TCPChat
 
         private void Login()
         {
-            LoginWindow passwordWindow = new LoginWindow();
+            LoginWindow passwordWindow = new LoginWindow(this);
 
             if (passwordWindow.ShowDialog() == true)
             {
                 if (passwordWindow.password == "nimana")
                 {
-                    //MessageBox.Show("Авторизация пройдена");
+                    WriteMessage("Авторизация пройдена");
+                    WriteMessage($"Добро пожалывать в чат {passwordWindow.login}");
+                    NewUser(passwordWindow.login, passwordWindow.password);
                 }
-                else
+                else 
                 {
-                    // MessageBox.Show("Неверный пароль");
+                    NewUser(passwordWindow.login, passwordWindow.password);
+
+
+                   
                 }
             }
             else
             {
-               // MessageBox.Show("Авторизация не пройдена");
+               WriteMessage("Авторизация не пройдена");
             }
+        }
+
+        private void NewUser(string name, string password)
+        {
+            user = new User();
+            user.Login = name;
+            user.Password = password;
+             
+        }
+
+        private void WriteMessage(string message)
+        {
+            source.mainText = source.mainText.Insert(0, message + Environment.NewLine);
         }
 
         private void SendMessage()
@@ -91,7 +118,7 @@ namespace TCPChat
             string message = source.message;
             byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
-            source.mainText = source.mainText.Insert(0, message + Environment.NewLine);
+            WriteMessage(message);
             source.message = "";
         }
 
@@ -132,32 +159,19 @@ namespace TCPChat
             Environment.Exit(0); //завершение процесса
         }
 
+        
+
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            client = new TcpClient();
-            try
-            {
-                client.Connect(host, port); //подключение клиента
-                stream = client.GetStream(); // получаем поток
-                userName = Guid.NewGuid().ToString();
-                string message = userName;
-                byte[] data = Encoding.Unicode.GetBytes(message);
-                stream.Write(data, 0, data.Length);
-                Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
-                receiveThread.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error" + ex.Message);
-            }
+            Conect();
 
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //source.mainText += "uqowiuqoei qwieuoqiwueoqwuie qwioeuqwoieuoqwieu qwioeuqwoieuqwoieuqwoeuoqwuieoqwiueoqwiue qweqwoieuqwoeu" + source.message + Environment.NewLine;
 
-            source.mainText = source.mainText.Insert(0, "uqowiuqoei qwieuoqiwueoqwuie qwioeuqwoieuoqwieu qwioeuqwoieuqwoieuqwoeuoqwuieoqwiueoqwiue qweqwoieuqwoeu" + source.message + Environment.NewLine);
+            WriteMessage("Test");
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

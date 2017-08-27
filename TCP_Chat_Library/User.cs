@@ -9,12 +9,12 @@ namespace TCP_Chat_Library
     [Serializable]
     public class User
     {
-        string Name { get; set; }
-        int Age { get; set; }
-        string Sex { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Sex { get; set; }
 
-        string Login { get; set; }
-        string Password { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
 
     }
 }
