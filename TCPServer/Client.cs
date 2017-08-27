@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Diagnostics;
+using TCP_Chat_Library;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TCPServer
 {
@@ -15,12 +17,15 @@ namespace TCPServer
         protected internal string Id { get; private set; }
         protected internal NetworkStream Stream { get; private set; }
         string userName;
+        User user;
         TcpClient client;
         Server server; // объект сервера
+        Command ResCommand;
 
         public Client(TcpClient tcpClient, Server serverObject)
         {
             Id = Guid.NewGuid().ToString();
+            ResCommand = new Command();
             client = tcpClient;
             server = serverObject;
             serverObject.AddConnection(this);
@@ -31,46 +36,73 @@ namespace TCPServer
             try
             {
                 Stream = client.GetStream();
+                
                 // получаем имя пользователя
-                string message = GetMessage();
-                userName = message;
-                Console.WriteLine($"{client.Client.RemoteEndPoint} conected");
-                message = userName + " вошел в чат";
+                //string message = GetMessage();
+                //userName = message;
+                //Console.WriteLine($"{client.Client.RemoteEndPoint} conected");
+                //message = userName + " вошел в чат";
                 // посылаем сообщение о входе в чат всем подключенным пользователям
-                server.BroadcastMessage(message, this.Id);
-                Console.WriteLine(message);
-                WriteToLog(message);
+                //server.BroadcastMessage(message, this.Id);
+                //Console.WriteLine(message);
+                //WriteToLog(message);
 
                 // в бесконечном цикле получаем сообщения от клиента
-                while (true)
+                do
                 {
+
+                    //message = GetMessage();
+                    //if (message.Contains("exit")) throw new Exception();
+                    //if (message.Contains("test"))
+                    //{
+                    //    Console.WriteLine("\nIt's a test!!!!\n");
+                    //    System.Diagnostics.Process.Start("gribi.mp3");
+                    //}
+                    //message = String.Format("{0}: {1}", userName, message);
+                    //Console.WriteLine(message);
+                    //WriteToLog(message);
+                    //server.BroadcastMessage(message, this.Id);
                     try
                     {
-                        message = GetMessage();
-                        if (message.Contains("exit")) throw new Exception();
-                        if (message.Contains("test"))
+                        ResCommand.command = GetCommandFromClient();
+                        switch (ResCommand.command)
                         {
-                            Console.WriteLine("\nIt's a test!!!!\n");
-                            System.Diagnostics.Process.Start("gribi.mp3");
+
+                            case Commands.MyCommands.Message:
+                                {
+                                    Console.WriteLine("message");
+
+                                    break;
+                                }
+                            case Commands.MyCommands.UserData:
+                                {
+                                    GetUserData();
+                                    Console.WriteLine($"{user.Login} ({client.Client.RemoteEndPoint}) conected");
+
+                                    break;
+                                }
+                            case Commands.MyCommands.Exit:
+                                {
+                                    Console.WriteLine($"{userName}  покинул чат");
+                                    WriteToLog($"{userName}  покинул чат");
+                                    //server.RemoveConnection(this.Id);
+                                    //Close();
+                                    break;
+                                }
+                            default:
+                                break;
                         }
-                        message = String.Format("{0}: {1}", userName, message);
-                        Console.WriteLine(message);
-                        WriteToLog(message);
-                        server.BroadcastMessage(message, this.Id);
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        message = String.Format("{0}: покинул чат", userName);
-                        Console.WriteLine(message);
-                        WriteToLog(message);
-                        server.BroadcastMessage(message, this.Id);
-                        break;
+                        Console.WriteLine("ERROR1: " + ex.Message);
                     }
-                }
+
+                } while (ResCommand.command != Commands.MyCommands.Exit);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("ERROR2: " + e.Message);
             }
             finally
             {
@@ -78,6 +110,15 @@ namespace TCPServer
                 server.RemoveConnection(this.Id);
                 Close();
             }
+        }
+
+        private void GetUserData()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+
+            user = bf.Deserialize(Stream) as User;
+
+
         }
 
         private void WriteToLog(string message)
@@ -92,17 +133,21 @@ namespace TCPServer
         // чтение входящего сообщения и преобразование в строку
         private string GetMessage()
         {
-            byte[] data = new byte[64]; // буфер для получаемых данных
-            StringBuilder builder = new StringBuilder();
-            int bytes = 0;
-            do
-            {
-                bytes = Stream.Read(data, 0, data.Length);
-                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-            }
-            while (Stream.DataAvailable);
 
-            return builder.ToString();
+
+            return "test";
+        }
+
+        private Commands.MyCommands GetCommandFromClient()
+        {
+           
+            BinaryFormatter bf = new BinaryFormatter();
+
+            Command com = bf.Deserialize(Stream) as Command;
+            
+            if (com.command < 0) throw new Exception("Неверная комманда");
+            //reader.Close();
+            return com.command; ;
         }
 
         // закрытие подключения

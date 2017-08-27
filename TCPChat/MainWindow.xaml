@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCPChat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600">
+        Title="MainWindow" Height="450" Width="600">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="291*"/>
-            <RowDefinition Height="79*"/>
+            <RowDefinition Height="103*"/>
+            <RowDefinition Height="37*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="395*"/>
@@ -31,8 +31,10 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox   Margin="10"   Text="{Binding message}" Height="Auto"/>
-            <Button Style="{DynamicResource ButtonBlue}" Grid.Column="1" Content="Send" Margin="10" MaxHeight="25"  Click="Button_Click"/>
-            <Button Style="{DynamicResource ButtonBlue}" Grid.Column="1" Grid.Row="1" Content="Test" Margin="10,6,10,6" MaxHeight="25"  Click="Button_Click_2"/>
+            <Button Style="{DynamicResource ButtonBlue}" Grid.Column="1" Content="Send" Margin="10" MaxHeight="25"  Click="Button_SendMessage"/>
+            <Button Grid.Row="1"  Grid.Column="0" Margin="5" Name="com1" Click="com1_Click" Content="SendUserData"></Button>
+            <Button Grid.Row="1" Grid.Column="1" Margin="5" Name="com2" Click="com2_Click" Content="SendUserData&#xD;&#xA;"></Button>
+
 
         </Grid>
         <Grid Grid.Column="1"  Grid.Row="1">
@@ -40,11 +42,11 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Style="{DynamicResource ButtonBlue}" Content="Conect to server" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3"  Click="Button_Click_1" Height="Auto"/>
-            <Button Style="{DynamicResource ButtonBlue}" Content="Exit" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3" Grid.Row="1" Click="Button_Click_3" Height="Auto"/>
+            <Button Style="{DynamicResource ButtonBlue}" Content="Conect to server" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3"  Click="Button_ConectToServer" Height="Auto"/>
+            <Button Style="{DynamicResource ButtonBlue}" Content="Exit" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3" Grid.Row="1" Click="Button_Exit" Height="Auto"/>
 
         </Grid>
-        
+
 
         <ListBox  Grid.Column="1" Margin="10"/>
 

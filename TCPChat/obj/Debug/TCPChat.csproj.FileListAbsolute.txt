@@ -44,3 +44,5 @@ C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.Properties.
 C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.csproj.GenerateResource.Cache
 C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.exe
 C:\Users\student.LAN\Source\Repos\TCP_Chat\TCPChat\obj\Debug\TCPChat.pdb
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\TCP_Chat_Library.dll
+E:\Programming\Projects\Web Programm\TCP_Chat\TCPChat\bin\Debug\TCP_Chat_Library.pdb
