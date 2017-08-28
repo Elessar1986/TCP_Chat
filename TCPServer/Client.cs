@@ -9,6 +9,7 @@ using System.Windows;
 using System.Diagnostics;
 using TCP_Chat_Library;
 using System.Runtime.Serialization.Formatters.Binary;
+using TCPServer_DataBase;
 
 namespace TCPServer
 {
@@ -16,11 +17,14 @@ namespace TCPServer
     {
         protected internal string Id { get; private set; }
         protected internal NetworkStream Stream { get; private set; }
-        string userName;
-        User user;
+
+        protected internal UserObj user = new UserObj();
+        protected internal MessageObj newMessage = new MessageObj();
+        protected internal ErrorObj errorCode = new ErrorObj();
         TcpClient client;
         Server server; // объект сервера
         Command ResCommand;
+        
 
         public Client(TcpClient tcpClient, Server serverObject)
         {
@@ -35,33 +39,13 @@ namespace TCPServer
         {
             try
             {
+
                 Stream = client.GetStream();
-                
-                // получаем имя пользователя
-                //string message = GetMessage();
-                //userName = message;
-                //Console.WriteLine($"{client.Client.RemoteEndPoint} conected");
-                //message = userName + " вошел в чат";
-                // посылаем сообщение о входе в чат всем подключенным пользователям
-                //server.BroadcastMessage(message, this.Id);
-                //Console.WriteLine(message);
-                //WriteToLog(message);
 
                 // в бесконечном цикле получаем сообщения от клиента
                 do
                 {
 
-                    //message = GetMessage();
-                    //if (message.Contains("exit")) throw new Exception();
-                    //if (message.Contains("test"))
-                    //{
-                    //    Console.WriteLine("\nIt's a test!!!!\n");
-                    //    System.Diagnostics.Process.Start("gribi.mp3");
-                    //}
-                    //message = String.Format("{0}: {1}", userName, message);
-                    //Console.WriteLine(message);
-                    //WriteToLog(message);
-                    //server.BroadcastMessage(message, this.Id);
                     try
                     {
                         ResCommand.command = GetCommandFromClient();
@@ -71,22 +55,25 @@ namespace TCPServer
                             case Commands.MyCommands.Message:
                                 {
                                     Console.WriteLine("message");
-
+                                    GetMessage();
                                     break;
                                 }
                             case Commands.MyCommands.UserData:
                                 {
                                     GetUserData();
-                                    Console.WriteLine($"{user.Login} ({client.Client.RemoteEndPoint}) conected");
-
+                                    if (server.GetUserId(user) != -1)
+                                        Console.WriteLine($"{user.Login} ({client.Client.RemoteEndPoint}) conected");
+                                    else
+                                        SendError(ErrorCodeEnum.ErrorCode.WrongLoginOrPass);
+                                        
                                     break;
                                 }
                             case Commands.MyCommands.Exit:
                                 {
-                                    Console.WriteLine($"{userName}  покинул чат");
-                                    WriteToLog($"{userName}  покинул чат");
-                                    //server.RemoveConnection(this.Id);
-                                    //Close();
+                                    Console.WriteLine($"{user.Login} покинул чат");
+                                    WriteToLog($"{user.Login}  покинул чат");
+                                    server.RemoveConnection(user.UserID);
+                                    Close();
                                     break;
                                 }
                             default:
@@ -107,17 +94,38 @@ namespace TCPServer
             finally
             {
                 // в случае выхода из цикла закрываем ресурсы
-                server.RemoveConnection(this.Id);
+                server.RemoveConnection(user.UserID);
                 Close();
             }
+        }
+
+        private void SendError(ErrorCodeEnum.ErrorCode code)
+        {
+            SendCommand(Commands.MyCommands.Error);
+            BinaryFormatter bf = new BinaryFormatter();
+            errorCode = new ErrorObj();
+            errorCode.errorCode = code;
+            bf.Serialize(Stream, errorCode);
+
+        }
+
+        private void SendCommand(Commands.MyCommands command)
+        {
+
+            BinaryFormatter bf = new BinaryFormatter();
+            Command newCom = new Command();
+            newCom.command = command;
+            bf.Serialize(Stream, newCom);
+            //Stream.Flush();
+
         }
 
         private void GetUserData()
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            user = bf.Deserialize(Stream) as User;
-
+            user = bf.Deserialize(Stream) as TCP_Chat_Library.UserObj;
+            
 
         }
 
@@ -131,11 +139,12 @@ namespace TCPServer
         }
 
         // чтение входящего сообщения и преобразование в строку
-        private string GetMessage()
+        private void GetMessage()
         {
+            BinaryFormatter bf = new BinaryFormatter();
 
-
-            return "test";
+            newMessage = bf.Deserialize(Stream) as MessageObj;
+            Console.WriteLine($"({client.Client.RemoteEndPoint}): {newMessage.message}");
         }
 
         private Commands.MyCommands GetCommandFromClient()
@@ -160,75 +169,7 @@ namespace TCPServer
         }
     }
 
-    //TcpClient client;
-
-    //public Client(TcpClient Client)
-    //{
-    //    this.client = Client;
-    //}
-
-
-    //public void ClientResponseToUpper()
-    //{
-    //    Console.WriteLine($"{client.Client.RemoteEndPoint.ToString()} conected");
-    //    // Код простой HTML-странички
-    //    //string Html = "<html><body><h1>It works!</h1></body></html>";
-    //    // Необходимые заголовки: ответ сервера, тип и длина содержимого. После двух пустых строк - само содержимое
-    //    //string Str = "HTTP/1.1 200 OK\nContent-type: text/html\nContent-Length:" + Html.Length.ToString() + "\n\n" + Html;
-    //    string Str = "Hello, " + client.Client.RemoteEndPoint.ToString() + "!";
-
-    //    // Приведем строку к виду массива байт
-    //    byte[] Buffer = Encoding.Unicode.GetBytes(Str);
-    //    // Отправим его клиенту
-    //    client.GetStream().Write(Buffer, 0, Buffer.Length);
-
-    //    NetworkStream stream = client.GetStream();
-
-    //    while (true)
-    //    {
-    //        byte[] data;
-    //        string message;
-
-    //        data = new byte[64]; // буфер для получаемых данных
-    //        StringBuilder builder = new StringBuilder();
-    //        int bytes = 0;
-    //        do
-    //        {
-    //            bytes = stream.Read(data, 0, data.Length);
-    //            builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-    //        }
-    //        while (stream.DataAvailable);
-
-    //        message = builder.ToString();
-
-    //        if (message.Contains("exit"))
-    //        {
-    //            Console.WriteLine(client.Client.RemoteEndPoint.ToString() + " disconected");
-    //            break;
-    //        }
-
-    //        Console.WriteLine(client.Client.RemoteEndPoint.ToString() + ": " + message);
-
-
-    //        //Console.Write("Me: ");
-    //        // ввод сообщения
-    //        //message = Console.ReadLine();
-    //        //message = String.Format("{0}: {1}", name, message);
-    //        // преобразуем сообщение в массив байтов
-    //        //data = Encoding.Unicode.GetBytes(message);
-    //        // отправка сообщения
-    //        //stream.Write(data, 0, data.Length);
-
-    //        // получаем ответ
-    //        message = message.Substring(message.IndexOf(':') + 1).Trim().ToUpper();
-    //        data = Encoding.Unicode.GetBytes(message);
-    //        stream.Write(data, 0, data.Length);
-
-    //    }
-
-    //    stream.Close();
-    //    client.Close();
-    //}
+    
 
 }
 

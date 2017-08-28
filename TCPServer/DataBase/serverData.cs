@@ -1,4 +1,4 @@
-namespace TCPServer
+namespace TCPServer_DataBase
 {
     using System;
     using System.Data.Entity;

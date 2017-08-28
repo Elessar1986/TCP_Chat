@@ -20,7 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TCP_Chat_Library;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using System.Windows.Threading;
 
 namespace TCPChat
 {
@@ -29,8 +29,8 @@ namespace TCPChat
     /// </summary>
     public partial class MainWindow : Window
     {
-        User user;
-        Message newMessage
+        UserObj user;
+        MessageObj newMessage = new MessageObj();
         Source source;
         //static string userName;
         //private const string host = "176.38.92.22";
@@ -39,12 +39,14 @@ namespace TCPChat
         private const int port = 20000;
         static TcpClient client;
         static NetworkStream stream;
+        Command ResCommand;
+        ErrorObj error = new ErrorObj();
 
         public MainWindow()
         {
             
             InitializeComponent();
-            
+            PropertiesButton.IsEnabled = false;
             source = new Source();
             this.DataContext = source;
 
@@ -77,7 +79,7 @@ namespace TCPChat
         private void Button_SendMessage(object sender, RoutedEventArgs e)
         {
             SendCommand(Commands.MyCommands.Message);
-            //SendMessage();  
+            SendMessage();  
         }
 
         private void Login()
@@ -88,7 +90,7 @@ namespace TCPChat
             {
                 if (passwordWindow.password == "nimana")
                 {
-                    WriteMessage("Авторизация пройдена");
+                    PropertiesButton.IsEnabled = true;
                     WriteMessage($"Добро пожалывать в чат {passwordWindow.login}");
                     NewUser(passwordWindow.login, passwordWindow.password);
                     SendCommand(Commands.MyCommands.UserData);
@@ -108,14 +110,13 @@ namespace TCPChat
             {
                WriteMessage("Авторизация не пройдена");
             }
+
+            
         }
 
         private void SendCommand(Commands.MyCommands command)
         {
-            //BinaryWriter writer = new BinaryWriter(stream);
-            //writer.Write((int)command);
-            //writer.Flush();
-            //writer.Close();
+            
             BinaryFormatter bf = new BinaryFormatter();
             Command newCom = new Command();
             newCom.command = command;
@@ -126,7 +127,7 @@ namespace TCPChat
 
         private void NewUser(string name, string password)
         {
-            user = new User();
+            user = new UserObj();
             user.Login = name;
             user.Password = password;
              
@@ -137,7 +138,7 @@ namespace TCPChat
             source.mainText = source.mainText.Insert(0, message + Environment.NewLine);
         }
 
-        private void SendUserData(User user)
+        private void SendUserData(UserObj user)
         {
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(stream, user);
@@ -151,6 +152,14 @@ namespace TCPChat
             //stream.Write(data, 0, data.Length);
             //WriteMessage(message);
             //source.message = "";
+            newMessage = new MessageObj();
+            newMessage.message = source.message;
+            source.message = "";
+            WriteMessage(newMessage.message);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(stream, newMessage);
+            
+
         }
 
         private void ReceiveMessage()
@@ -159,16 +168,85 @@ namespace TCPChat
             {
                 try
                 {
-                   
+                    ResCommand = new Command();
+                    ResCommand.command = GetCommandFromServer();
+                    
+                    switch (ResCommand.command)
+                    {
+
+                        case Commands.MyCommands.Message:
+                            {
+                                
+                                //GetMessage();
+                                break;
+                            }
+                        case Commands.MyCommands.UserData:
+                            {
+                                //GetUserData();
+
+                                
+
+                                break;
+                            }
+                        case Commands.MyCommands.Error:
+                            {
+                                GetError();
+                                WriteMessage($"Error: {error.errorCode}");
+                                switch (error.errorCode)
+                                {
+                                    case ErrorCodeEnum.ErrorCode.WrongLoginOrPass:
+                                        {
+                                            WriteMessage("Try one more time.");
+                                            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                                                                        (ThreadStart)delegate ()
+                                                                {
+                                                                    Login();
+                                                                }
+                                                            );
+                                            
+                                        }
+                                        break;
+                                    case ErrorCodeEnum.ErrorCode.ServerShotdown:
+                                        {
+
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            }
+                        default:
+                            break;
+                    }
 
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Подключение прервано!"); //соединение было прервано
+                    MessageBox.Show($"ERROR: {ex.Message}"); //соединение было прервано
                     
-                    Disconnect();
+                    //Disconnect();
                 }
             }
+        }
+
+        private void GetError()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+
+            error = bf.Deserialize(stream) as ErrorObj;
+
+        }
+
+        private Commands.MyCommands GetCommandFromServer()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+
+            Command com = bf.Deserialize(stream) as Command;
+
+            if (com.command < 0) throw new Exception("Неверная комманда");
+            //reader.Close();
+            return com.command; ;
         }
 
         private void Disconnect()

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="TCPConections.cs" />
     <Compile Include="User.cs" />

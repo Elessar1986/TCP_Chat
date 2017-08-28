@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TCP_Chat_Library
 {
-    public class Message
+
+    [Serializable]
+    public class MessageObj
     {
             public long MessageID { get; set; }
 

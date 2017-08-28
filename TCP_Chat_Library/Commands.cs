@@ -15,6 +15,7 @@ namespace TCP_Chat_Library
         {
             Message = 1,
             UserData = 2,
+            Error = 3,
             Exit = 10
         }
     }
@@ -23,5 +24,6 @@ namespace TCP_Chat_Library
     public class Command
     {
         public Commands.MyCommands command { get; set; }
+        public int UsersNum { get; set; }
     }
 }

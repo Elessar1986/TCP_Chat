@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TCPServer_DataBase;
+using TCP_Chat_Library;
 
 namespace TCPServer
 {
@@ -15,15 +17,32 @@ namespace TCPServer
 
         static TcpListener tcpListener; // сервер для прослушивания
         List<Client> clients = new List<Client>(); // все подключения
+        serverData data = new serverData();
+
+        protected internal long GetUserId(UserObj user)
+        {
+            var res = from us in data.User
+                      where us.Login == user.Login && us.Password == user.Password
+                      select us.UserId;
+            if (res.Count() == 0)
+                return -1;
+            else
+                return res.FirstOrDefault();
+        }
+
+        protected internal void GetUsersOnline()
+        {
+
+        }
 
         protected internal void AddConnection(Client clientObject)
         {
             clients.Add(clientObject);
         }
-        protected internal void RemoveConnection(string id)
+        protected internal void RemoveConnection(long id)
         {
             // получаем по id закрытое подключение
-            Client client = clients.FirstOrDefault(c => c.Id == id);
+            Client client = clients.FirstOrDefault(c => c.user.UserID == id);
             // и удаляем его из списка подключений
             if (client != null)
                 clients.Remove(client);

@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using TCPServer_DataBase;
 
 namespace TCPServer
 {
@@ -21,7 +22,7 @@ namespace TCPServer
 
         static void Main(string[] args)
         {
-            serverData data = new serverData();
+            
 
             try
             {
