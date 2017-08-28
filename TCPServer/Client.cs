@@ -54,7 +54,6 @@ namespace TCPServer
 
                             case Commands.MyCommands.Message:
                                 {
-                                    Console.WriteLine("message");
                                     GetMessage();
                                     break;
                                 }
@@ -144,7 +143,7 @@ namespace TCPServer
             BinaryFormatter bf = new BinaryFormatter();
 
             newMessage = bf.Deserialize(Stream) as MessageObj;
-            Console.WriteLine($"({client.Client.RemoteEndPoint}): {newMessage.message}");
+            Console.WriteLine($"({user.Login}): {newMessage.message}");
         }
 
         private Commands.MyCommands GetCommandFromClient()

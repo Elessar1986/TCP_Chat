@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Button Style="{DynamicResource ButtonBlue}"  Grid.Column="0" Content="Выход" Margin="3" Click="Button_Click_1"></Button>
-            <Button Style="{DynamicResource ButtonBlue}" Grid.Column="1" Content="Регистрация" Margin="3"></Button>
+            <Button Style="{DynamicResource ButtonBlue}" Name="Registration" Click="Registration_Click" Grid.Column="1" Content="Регистрация" Margin="3"></Button>
             <Button Style="{DynamicResource ButtonBlue}" Grid.Column="2" Content="Вход" Margin="3" Click="Button_Click"></Button>
         </Grid>
     </Grid>

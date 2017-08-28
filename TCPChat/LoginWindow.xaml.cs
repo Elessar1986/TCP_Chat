@@ -51,5 +51,16 @@ namespace TCPChat
         {
             this.DialogResult = false;
         }
+
+        private void Registration_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow regWin = new RegistrationWindow();
+            if (regWin.ShowDialog() == true)
+            {
+                MessageBox.Show("Registered");
+            }
+            else MessageBox.Show("Canceled");
+
+        }
     }
 }
