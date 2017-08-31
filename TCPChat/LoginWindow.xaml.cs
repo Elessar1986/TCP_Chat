@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TCP_Chat_Library;
 
 namespace TCPChat
 {
@@ -19,19 +22,42 @@ namespace TCPChat
     /// </summary>
     /// 
     
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : Window, INotifyPropertyChanged
     {
 
         private Window mainWindow;
+        public bool registration { get; set; }
+        UserObj user;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public UserObj User
+        {
+            get { return user; }
+            set
+            {
+                user = value;
+                OnPropertyChanged();
+            }
+        }
+
         public LoginWindow(Window mainWin)
         {
+            mainWindow = mainWin;
             InitializeComponent();
-            
+            registration = false;
         }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show($"Pas: {Password.Password} \nLog: {Login.Text}");
+            
             this.DialogResult = true;
         }
 
@@ -57,9 +83,11 @@ namespace TCPChat
             RegistrationWindow regWin = new RegistrationWindow();
             if (regWin.ShowDialog() == true)
             {
-                MessageBox.Show("Registered");
+                registration = true;
+                User = regWin.User;
+                this.DialogResult = true;
             }
-            else MessageBox.Show("Canceled");
+            
 
         }
     }

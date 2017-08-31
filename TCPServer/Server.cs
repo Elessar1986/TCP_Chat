@@ -17,7 +17,15 @@ namespace TCPServer
 
         static TcpListener tcpListener; // сервер для прослушивания
         List<Client> clients = new List<Client>(); // все подключения
+
+        public List<UserObj> usersOnline = new List<UserObj>();
+
         serverData data = new serverData();
+
+        public Server()
+        {
+
+        }
 
         protected internal long GetUserId(UserObj user)
         {
@@ -30,14 +38,15 @@ namespace TCPServer
                 return res.FirstOrDefault();
         }
 
-        protected internal void GetUsersOnline()
+        protected internal void AddUserOnline(UserObj user)
         {
-
+            usersOnline.Add(user);
         }
 
         protected internal void AddConnection(Client clientObject)
         {
             clients.Add(clientObject);
+            
         }
         protected internal void RemoveConnection(long id)
         {
@@ -46,6 +55,13 @@ namespace TCPServer
             // и удаляем его из списка подключений
             if (client != null)
                 clients.Remove(client);
+
+            UserObj user = usersOnline.FirstOrDefault(x => x.UserID == id);
+
+            if(usersOnline != null)
+            {
+                usersOnline.Remove(user);
+            }
         }
         // прослушивание входящих подключений
         protected internal void Listen()
@@ -72,6 +88,15 @@ namespace TCPServer
             }
         }
 
+        protected internal void GetUserInfo(ref UserObj user)
+        {
+            long uId = user.UserID;
+            var res = from us in data.User
+                      where us.UserId == uId
+                      select us;
+            user = MyConverter.UserToUserObj(res.FirstOrDefault());
+        }
+
         // трансляция сообщения подключенным клиентам
         protected internal void BroadcastMessage(string message, string id)
         {
@@ -84,6 +109,13 @@ namespace TCPServer
                 }
             }
         }
+
+        internal void AddUserData(UserObj user)
+        {
+            data.User.Add(MyConverter.UserObjToUser(user));
+            data.SaveChanges();
+        }
+
         // отключение всех клиентов
         protected internal void Disconnect()
         {

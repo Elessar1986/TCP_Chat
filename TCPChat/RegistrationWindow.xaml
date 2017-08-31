@@ -34,6 +34,20 @@
         </Grid>
         <TextBlock Grid.Row="1" Text="Логин:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <TextBlock Grid.Row="2" Text="Пароль:" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="2"></TextBox>
+        <TextBlock Grid.Row="3" Text="Имя:" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+        <TextBlock Grid.Row="4" Text="Пол:" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+        <TextBlock Grid.Row="5" Text="Возраст:" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+
+        <TextBox Text="{Binding Login}" Grid.Column="1" Grid.Row="1" Margin="2"></TextBox>
+        <TextBox Text="{Binding Password}" Grid.Row="2" Grid.Column="1" Margin="2"></TextBox>
+        <TextBox Text="{Binding Name}" Grid.Row="3" Grid.Column="1" Margin="2"></TextBox>
+        <ComboBox Name="Sex" Grid.Row="4" SelectedIndex="0" Grid.Column="1" Margin="2">
+            <ComboBoxItem Tag="1" Content="Муж"></ComboBoxItem>
+            <ComboBoxItem Tag="0" Content="Жен"></ComboBoxItem>
+        </ComboBox>
+        <Slider Grid.Row="5" Grid.Column="1" Margin="2,2,46,2" Minimum="18" Maximum="100" Name="Age" Value="{Binding Age}"></Slider>
+        <TextBlock Grid.Column="1" TextAlignment="Center" HorizontalAlignment="Left" Margin="183,6,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding ElementName=Age, Path=Value}" VerticalAlignment="Top" Height="16" Width="31"/>
+
+
     </Grid>
 </Window>

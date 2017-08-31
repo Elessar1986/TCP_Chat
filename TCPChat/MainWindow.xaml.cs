@@ -53,6 +53,29 @@ namespace TCPChat
             Conect();
 
             Login();
+
+            RunUsersOnlineList();
+        }
+
+        private void RunUsersOnlineList()
+        {
+            Thread receiveOnlineUsers = new Thread(new ThreadStart(RefreshUsersOnline));
+            receiveOnlineUsers.Start();
+
+        }
+
+        private void RefreshUsersOnline()
+        {
+           
+                SendCommand(Commands.MyCommands.UsersOnline);
+               
+            
+        }
+
+        private void GetUsersOnline()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            source.UsersOnline = bf.Deserialize(stream) as List<UserObj>;
         }
 
         public void Conect()
@@ -88,7 +111,7 @@ namespace TCPChat
 
             if (passwordWindow.ShowDialog() == true)
             {
-                if (passwordWindow.password == "nimana")
+                if (passwordWindow.password == "nimana2311")
                 {
                     PropertiesButton.IsEnabled = true;
                     WriteMessage($"Добро пожалывать в чат {passwordWindow.login}");
@@ -98,17 +121,28 @@ namespace TCPChat
                 }
                 else 
                 {
-                    NewUser(passwordWindow.login, passwordWindow.password);
-                    WriteMessage($"Добро пожалывать в чат {passwordWindow.login}");
-                    SendCommand(Commands.MyCommands.UserData);
-                    SendUserData(user);
-
+                    if (passwordWindow.registration)
+                    {
+                        SendCommand(Commands.MyCommands.NewUserData);
+                        SendUserData(passwordWindow.User);
+                        MessageBox.Show($"Добро пожаловать в чат, {passwordWindow.User.Name}!","Новый пользователь!!!");
+                    }
+                    else
+                    {
+                        NewUser(passwordWindow.login, passwordWindow.password);
+                        WriteMessage($"Добро пожалывать в чат {passwordWindow.login}");
+                        SendCommand(Commands.MyCommands.UserData);
+                        SendUserData(user);
+                    }
 
                 }
             }
             else
             {
-               WriteMessage("Авторизация не пройдена");
+                SendCommand(Commands.MyCommands.Exit);
+                Thread.Sleep(100);
+                Disconnect();
+                Environment.Exit(0);
             }
 
             
@@ -177,7 +211,7 @@ namespace TCPChat
                         case Commands.MyCommands.Message:
                             {
                                 
-                                //GetMessage();
+                                GetMessage();
                                 break;
                             }
                         case Commands.MyCommands.UserData:
@@ -186,6 +220,11 @@ namespace TCPChat
 
                                 
 
+                                break;
+                            }
+                        case Commands.MyCommands.UsersOnline:
+                            {
+                                GetUsersOnline();
                                 break;
                             }
                         case Commands.MyCommands.Error:
@@ -230,6 +269,17 @@ namespace TCPChat
             }
         }
 
+        private void GetMessage()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+
+            newMessage = bf.Deserialize(stream) as MessageObj;
+            if (newMessage.FromID == -1) WriteMessage($"Server: {newMessage.message}");
+            
+
+
+        }
+
         private void GetError()
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -263,7 +313,7 @@ namespace TCPChat
 
         private void Button_ConectToServer(object sender, RoutedEventArgs e)
         {
-            Conect();
+            RefreshUsersOnline();
 
         }
 
@@ -280,9 +330,7 @@ namespace TCPChat
 
         private void com1_Click(object sender, RoutedEventArgs e)
         {
-            SendCommand(Commands.MyCommands.UserData);
-            Thread.Sleep(100);
-            SendUserData(user);
+            
 
         }
 

@@ -41,14 +41,20 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Style="{DynamicResource ButtonBlue}" Content="Подключиться" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3"  Click="Button_ConectToServer" Height="Auto"/>
+            <Button Style="{DynamicResource ButtonBlue}" Content="Обновить список" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3"  Click="Button_ConectToServer" Height="Auto"/>
             <Button Style="{DynamicResource ButtonBlue}" Content="Выход" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3" Grid.Row="2" Click="Button_Exit" Height="Auto"/>
             <Button Style="{DynamicResource ButtonBlue}" Name="PropertiesButton" Content="Настройки" Grid.Column="1" MaxHeight="25" Margin="5,5,5,3" Grid.Row="1" Click="com1_Click" Height="Auto"/>
 
         </Grid>
 
 
-        <ListBox  Grid.Column="1" Margin="10"/>
+        <ListBox ItemsSource="{Binding UsersOnline}" SelectedItem="{Binding SelectedUser}"  Grid.Column="1" Margin="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </Window>

@@ -57,14 +57,38 @@ namespace TCPServer
                                     GetMessage();
                                     break;
                                 }
+                            case Commands.MyCommands.UsersOnline:
+                                {
+                                    SendCommand(Commands.MyCommands.UsersOnline);
+                                    SendUsersOnline();
+                                    break;
+                                }
                             case Commands.MyCommands.UserData:
                                 {
                                     GetUserData();
-                                    if (server.GetUserId(user) != -1)
+                                    long userId = server.GetUserId(user);
+                                    user.UserID = userId;
+                                    if (userId != -1)
+                                    {
+                                        server.GetUserInfo(ref user);
+                                        server.AddUserOnline(user);
                                         Console.WriteLine($"{user.Login} ({client.Client.RemoteEndPoint}) conected");
+                                        WriteToLog($"{user.Login} ({client.Client.RemoteEndPoint}) conected");
+                                    }
                                     else
                                         SendError(ErrorCodeEnum.ErrorCode.WrongLoginOrPass);
                                         
+                                    break;
+                                }
+                            case Commands.MyCommands.NewUserData:
+                                {
+                                    GetUserData();
+                                    server.AddUserData(user);
+                                    server.AddUserOnline(user);
+                                    Console.WriteLine($"{user.Login} ({client.Client.RemoteEndPoint}) added to server and conected");
+                                    WriteToLog($"{user.Login} ({client.Client.RemoteEndPoint}) added to server and conected");
+                                    SendCommand(Commands.MyCommands.Message);
+                                    SendMessageFromServer("Server added you :)");
                                     break;
                                 }
                             case Commands.MyCommands.Exit:
@@ -96,6 +120,21 @@ namespace TCPServer
                 server.RemoveConnection(user.UserID);
                 Close();
             }
+        }
+
+        private void SendUsersOnline()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(Stream, server.usersOnline);
+        }
+
+        private void SendMessageFromServer(string message)
+        {
+            newMessage = new MessageObj();
+            newMessage.message = message;
+            newMessage.FromID = -1;
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(Stream, newMessage);
         }
 
         private void SendError(ErrorCodeEnum.ErrorCode code)

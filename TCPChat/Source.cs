@@ -5,15 +5,43 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TCP_Chat_Library;
 
 namespace TCPChat
 {
     class Source : INotifyPropertyChanged
     {
+        UserObj selectedUser;
+        public UserObj SelectedUser
+        {
+            get { return selectedUser; }
+            set
+            {
+                selectedUser = value;
+                OnPropertyChanged();
+            }
+        }
+
+        List<UserObj> usersOnline;
+        public List<UserObj> UsersOnline { get
+            {
+                return usersOnline;
+            }
+            set
+            {
+                usersOnline = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        
+
         public Source()
         {
-            mainText = "text";
+            mainText = "";
             message = "Your message...";
+            UsersOnline = new List<UserObj>();
+
         }
 
         string MainText;

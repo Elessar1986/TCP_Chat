@@ -16,6 +16,8 @@ namespace TCP_Chat_Library
             Message = 1,
             UserData = 2,
             Error = 3,
+            NewUserData = 4,
+            UsersOnline = 5,
             Exit = 10
         }
     }

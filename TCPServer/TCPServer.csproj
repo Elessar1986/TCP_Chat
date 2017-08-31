@@ -68,6 +68,7 @@
     <Compile Include="DataBase\Admin.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="DataBase\Messages.cs" />
+    <Compile Include="DataBase\MyConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
